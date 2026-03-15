@@ -34,17 +34,24 @@
 
     --radius: 0rem;
 
-    /* Minecraft palette */
-    --mc-grass: #5da832;
-    --mc-dirt: #8b6340;
-    --mc-stone: #7b7b7b;
-    --mc-wood: #a0652a;
-    --mc-gold: #ffd700;
-    --mc-diamond: #5de8e8;
-    --mc-dark: #1a1a1a;
-    --mc-bg: #1c2b1c;
-    --mc-panel: #2d3d2d;
-    --mc-border: #3d5a3d;
+    /* Minecraft TNT palette */
+    --mc-grass: #6ecf2a;
+    --mc-dirt: #9b6e40;
+    --mc-stone: #8a8a8a;
+    --mc-wood: #b07530;
+    --mc-gold: #ffe033;
+    --mc-diamond: #00f5ff;
+    --mc-dark: #0e0e0e;
+    --mc-bg: #111a0e;
+    --mc-panel: #1e2e18;
+    --mc-border: #4a7a28;
+    /* TNT explosion colors */
+    --tnt-red: #ff2200;
+    --tnt-orange: #ff7700;
+    --tnt-yellow: #ffdd00;
+    --tnt-pink: #ff44aa;
+    --tnt-purple: #cc22ff;
+    --tnt-cyan: #00ffee;
   }
 }
 
@@ -62,15 +69,15 @@
         0deg,
         transparent,
         transparent 31px,
-        rgba(0, 0, 0, 0.15) 31px,
-        rgba(0, 0, 0, 0.15) 32px
+        rgba(110, 207, 42, 0.07) 31px,
+        rgba(110, 207, 42, 0.07) 32px
       ),
       repeating-linear-gradient(
         90deg,
         transparent,
         transparent 31px,
-        rgba(0, 0, 0, 0.15) 31px,
-        rgba(0, 0, 0, 0.15) 32px
+        rgba(110, 207, 42, 0.07) 31px,
+        rgba(110, 207, 42, 0.07) 32px
       );
     min-height: 100vh;
   }
@@ -84,7 +91,7 @@
 /* Minecraft-style button */
 .mc-btn {
   display: inline-block;
-  background: var(--mc-grass);
+  background: linear-gradient(180deg, var(--mc-grass) 0%, #3fa010 100%);
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -94,22 +101,69 @@
   position: relative;
   image-rendering: pixelated;
   box-shadow:
-    inset -3px -3px 0 rgba(0, 0, 0, 0.4),
-    inset 3px 3px 0 rgba(255, 255, 255, 0.2);
+    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.25),
+    0 0 14px rgba(110, 207, 42, 0.35);
   transition:
     transform 0.1s,
-    filter 0.1s;
+    filter 0.1s,
+    box-shadow 0.15s;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .mc-btn:active {
   transform: translateY(2px);
   box-shadow:
-    inset -1px -1px 0 rgba(0, 0, 0, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
     inset 1px 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .mc-btn:hover {
-  filter: brightness(1.15);
+  filter: brightness(1.2);
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.3),
+    0 0 24px rgba(110, 207, 42, 0.7);
+}
+
+/* TNT RED button */
+.mc-btn-tnt {
+  background: linear-gradient(
+    180deg,
+    var(--tnt-red) 0%,
+    #aa0000 100%
+  ) !important;
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.2),
+    0 0 18px rgba(255, 34, 0, 0.6) !important;
+}
+.mc-btn-tnt:hover {
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.25),
+    0 0 32px rgba(255, 119, 0, 0.9) !important;
+}
+
+/* GOLD button */
+.mc-btn-gold {
+  background: linear-gradient(
+    180deg,
+    var(--mc-gold) 0%,
+    #cc9200 100%
+  ) !important;
+  color: #1a0e00 !important;
+  text-shadow: none !important;
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.4),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(255, 224, 51, 0.6) !important;
+}
+.mc-btn-gold:hover {
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.4),
+    inset 3px 3px 0 rgba(255, 255, 255, 0.4),
+    0 0 36px rgba(255, 224, 51, 1) !important;
 }
 
 /* Pixel block style */
@@ -376,4 +430,194 @@
 
 .notif-toast {
   animation: notif-slide 0.4s ease-out forwards;
+}
+
+/* ── TNT EXPLOSION glow ── */
+@keyframes tnt-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 8px var(--tnt-red),
+      0 0 20px var(--tnt-orange);
+  }
+  25% {
+    box-shadow:
+      0 0 16px var(--tnt-orange),
+      0 0 40px var(--tnt-yellow);
+  }
+  50% {
+    box-shadow:
+      0 0 24px var(--tnt-yellow),
+      0 0 60px var(--tnt-red);
+  }
+  75% {
+    box-shadow:
+      0 0 16px var(--tnt-pink),
+      0 0 40px var(--tnt-purple);
+  }
+}
+.tnt-glow {
+  animation: tnt-glow 1.2s ease-in-out infinite;
+}
+
+/* Slot spin */
+@keyframes slot-spin {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Slot reel blur during spin */
+@keyframes slot-blur {
+  0%,
+  100% {
+    filter: blur(0);
+  }
+  50% {
+    filter: blur(3px);
+  }
+}
+.slot-spinning {
+  animation: slot-blur 0.15s ease-in-out infinite;
+}
+
+/* Jackpot flash */
+@keyframes jackpot-flash {
+  0%,
+  100% {
+    background: var(--mc-panel);
+  }
+  20% {
+    background: rgba(255, 34, 0, 0.4);
+  }
+  40% {
+    background: rgba(255, 119, 0, 0.4);
+  }
+  60% {
+    background: rgba(255, 221, 0, 0.4);
+  }
+  80% {
+    background: rgba(204, 34, 255, 0.4);
+  }
+}
+.jackpot-flash {
+  animation: jackpot-flash 0.4s ease-in-out 3;
+}
+
+/* Rainbow border pulse */
+@keyframes rainbow-border {
+  0% {
+    border-color: var(--tnt-red);
+    box-shadow: 0 0 12px var(--tnt-red);
+  }
+  16% {
+    border-color: var(--tnt-orange);
+    box-shadow: 0 0 12px var(--tnt-orange);
+  }
+  33% {
+    border-color: var(--tnt-yellow);
+    box-shadow: 0 0 12px var(--tnt-yellow);
+  }
+  50% {
+    border-color: var(--mc-grass);
+    box-shadow: 0 0 12px var(--mc-grass);
+  }
+  66% {
+    border-color: var(--tnt-cyan);
+    box-shadow: 0 0 12px var(--tnt-cyan);
+  }
+  83% {
+    border-color: var(--tnt-purple);
+    box-shadow: 0 0 12px var(--tnt-purple);
+  }
+  100% {
+    border-color: var(--tnt-red);
+    box-shadow: 0 0 12px var(--tnt-red);
+  }
+}
+.rainbow-border {
+  animation: rainbow-border 2s linear infinite;
+}
+
+/* Win coins fly up */
+@keyframes coins-fly {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-60px) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-90px) scale(0.5);
+    opacity: 0;
+  }
+}
+.coins-fly {
+  animation: coins-fly 0.8s ease-out forwards;
+}
+
+/* TNT text flicker */
+@keyframes tnt-flicker {
+  0%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.4;
+  }
+  97% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.2;
+  }
+}
+.tnt-flicker {
+  animation: tnt-flicker 3s ease-in-out infinite;
+}
+
+/* Pulse glow for active elements */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    box-shadow:
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+  }
+}
+.pulse-glow {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Input TNT style */
+.mc-input {
+  background: #0e1a0a;
+  border: 3px solid var(--mc-border);
+  color: #e8ffcc;
+  font-family: "Rubik", sans-serif;
+  padding: 10px 12px;
+  width: 100%;
+  outline: none;
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.mc-input:focus {
+  border-color: var(--mc-grass);
+  box-shadow:
+    inset 2px 2px 0 rgba(0, 0, 0, 0.5),
+    0 0 12px rgba(110, 207, 42, 0.4);
+}
+.mc-input::placeholder {
+  color: #4a6a3a;
 }
